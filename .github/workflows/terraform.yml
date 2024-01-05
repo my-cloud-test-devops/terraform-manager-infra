@@ -30,7 +30,7 @@ jobs:
           with:
             tf_actions_version: 0.15.0
             tf_actions_subcommand: 'init'
-            tf_actions_working_dir: '.'
+            tf_actions_working_dir: './Terraform'
             tf_actions_comments: true
         
         - name: Terraform plan
@@ -38,13 +38,13 @@ jobs:
           with:
             tf_actions_version: 0.15.0
             tf_actions_subcommand: 'plan'
-            tf_actions_working_dir: '.'
+            tf_actions_working_dir: './Terraform'
             tf_actions_comments: true
         
-        - name: Terraform apply
-          uses: hashicorp/terraform-github-actions@master
-          with:
-                tf_actions_version: 0.15.0
-                tf_actions_subcommand: 'apply'
-                tf_actions_working_dir: '.'
-                tf_actions_comments: true
+        # - name: Terraform apply
+        #   uses: hashicorp/terraform-github-actions@master
+        #   with:
+        #         tf_actions_version: 0.15.0
+        #         tf_actions_subcommand: 'apply'
+        #         tf_actions_working_dir: '.'
+        #         tf_actions_comments: true
