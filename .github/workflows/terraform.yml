@@ -28,7 +28,7 @@ jobs:
           with:
             tf_actions_version: 0.15.0
             tf_actions_subcommand: 'init'
-            tf_actions_working_dir: './Terraform'
+            tf_actions_working_dir: '.'
             tf_actions_comment: true
         
         - name: Terraform plan
@@ -36,7 +36,7 @@ jobs:
           with:
             tf_actions_version: 0.15.0
             tf_actions_subcommand: 'plan'
-            tf_actions_working_dir: './Terraform'
+            tf_actions_working_dir: '.'
             tf_actions_comment: true
         
         # - name: Terraform apply
@@ -44,7 +44,7 @@ jobs:
         #   with:
         #         tf_actions_version: 0.15.0
         #         tf_actions_subcommand: 'apply'
-        #         tf_actions_working_dir: '/Terraform'
+        #         tf_actions_working_dir: '.'
         #         tf_actions_comment: true
 
         # Checkout the repository to the GitHub Actions runner
