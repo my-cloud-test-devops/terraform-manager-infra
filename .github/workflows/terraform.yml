@@ -41,10 +41,18 @@ jobs:
             tf_actions_working_dir: '.'
             tf_actions_comment: true
         
-        # - name: Terraform apply
+        - name: Terraform apply
+          uses: hashicorp/terraform-github-actions@master
+          with:
+                tf_actions_version: 0.15.0
+                tf_actions_subcommand: 'apply'
+                tf_actions_working_dir: '.'
+                tf_actions_comment: true
+
+        # - name: Terraform destroy
         #   uses: hashicorp/terraform-github-actions@master
         #   with:
         #         tf_actions_version: 0.15.0
-        #         tf_actions_subcommand: 'apply'
+        #         tf_actions_subcommand: 'destroy'
         #         tf_actions_working_dir: '.'
-        #         tf_actions_comment: true
+        #         tf_actions_comment: true                
