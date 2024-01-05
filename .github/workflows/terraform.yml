@@ -13,8 +13,8 @@ jobs:
       name: 'Terraform'
       env:
         #AWS Secrets
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_DEVOPS_KEY_ID }}
-        AWS_SECRET_ACCESS_ID: ${{ secrets.AWS_SECRET_ACCESS_DEVOPS_KEY_ID }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
 
       runs-on: ubuntu-latest
       environment: production
