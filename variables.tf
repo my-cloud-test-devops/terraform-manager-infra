@@ -1,21 +1,126 @@
-# variables.tf
-
-variable "aws_region" {
-  description = "AWS region where VPC will be created"
-  default     = "us-east-1"  # Change this to your desired region
+# VPC CIDR
+variable "vpc_id" {
+    type = string
+    default = "10.0.0.0/20"
 }
 
-variable "vpc_cidr_block" {
-  description = "CIDR block for the VPC"
-  default     = "10.0.0.0/16"  # Change this to your desired CIDR block
+# VPC NAME
+variable "vpc_name" {
+    type = object({
+      Name = string
+    })
+default = {
+      Name = "my_vpc"
+    }
 }
 
-variable "public_subnet_cidr_blocks" {
-  description = "CIDR blocks for public subnets"
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]  # Change these to your desired public subnet CIDR blocks
+# Public PUB_CIDR
+variable "pub_cidr" {
+    type = list(string)
+    default = [ "10.0.1.0/24", "10.0.2.0/24" ]
+  
 }
 
-variable "private_subnet_cidr_blocks" {
-  description = "CIDR blocks for private subnets"
-  default     = ["10.0.3.0/24", "10.0.4.0/24"]  # Change these to your desired private subnet CIDR blocks
+# Private Subnet Tags
+variable "subnet_tag_pub" {
+    type = list(object({
+      Name = string
+    }))
+    default = [ {
+      Name = "pub-subnet-1"
+    },
+    {
+      Name = "pub-subnet-2"
+    } ]
+}
+
+# Public Subnet Ids
+variable "pub_subnet_ids" {
+  type    = list(string)
+  default = ["subnet_id_1", "subnet_id_2"]
+}
+
+
+# Private PRI_CIDR
+variable "pri_cidr" {
+    type = list(string)
+    default = ["10.0.3.0/24", "10.0.4.0/24"]
+}
+
+#Private Subnet Tags
+variable "subnet_tag_pri" {
+    type = list(object({
+      Name = string
+    }))
+    default =  [{
+      Name = "pri-subnet-1"
+    },
+    {
+      Name = "pri-subnet-2"
+    } ]
+}
+
+#Private Subnet Ids
+variable "pri_subnet_ids" {
+  type    = list(string)
+  default = ["subnet_id_1", "subnet_id_2"]
+}
+
+##Internet Gateway##
+variable "intennet_gateway" {
+  type = object({
+    Name = string
+  })
+  
+  default = {
+    Name = "demo-igw"
+  }
+}
+# Internet_Gateway_Routable
+
+variable "route_table"{
+  type = object({
+    Name = string 
+  })  
+    default = {
+    Name = "demo-route-table"
+  }
+}
+
+# Security Group
+variable "security_group_name" {
+  default     = "demo-lb-sg"
+}
+
+variable "security_group_description" {
+  default     = "Load Balancer Security Group"
+}
+
+variable "ingress_ports" {
+  type        = list(number)
+  default     = [80, 8080,]
+}
+
+variable "cidr_blocks" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "ec2_ingress_ports" {
+  type        = list(number)
+  default     = [80, 8080,]
+}
+
+#ZONE
+variable "vpc_zone_identifier" {
+    type = list(string)
+    default = ["subnet_id_1", "subnet_id_2"]
+  
+}
+
+#
+variable "demo_alb_subnets" {
+    type = list(string)
+    default = ["subnet_id_1", "subnet_id_2"]
+  
 }
