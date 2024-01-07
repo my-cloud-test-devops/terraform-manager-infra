@@ -101,6 +101,11 @@ variable "ingress_ports" {
   default     = [80, 8080,]
 }
 
+variable "egress_ports" {
+  type        = list(number)
+  default     = [0, 0,]
+}
+
 variable "cidr_blocks" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
@@ -119,8 +124,8 @@ variable "vpc_zone_identifier" {
 }
 
 #
-# variable "demo_alb_subnets" {
-#     type = list(string)
-#     default = ["pub_subnet_id_1", "pub_subnet_id_2"]
+variable "demo_alb_subnets" {
+    type = list(string)
+    default = ["pub_subnet_id_1", "pub_subnet_id_2"]
   
-# }
+}

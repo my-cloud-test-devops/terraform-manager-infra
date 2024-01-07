@@ -50,7 +50,7 @@ resource "aws_security_group" "demo_instance_sg" {
   }
 
   dynamic "egress" {
-    for_each = var.ingress_ports
+    for_each = var.egress_ports
 
     content {
       from_port       = egress.value

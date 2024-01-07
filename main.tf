@@ -89,7 +89,7 @@ resource "aws_route_table_association" "demo_association_public" {
 #Application Load Balance:
 resource "aws_lb" "demo_alb" {
   #count = length(var.pub_subnet_ids)
-  name               = "demo-alb"
+  name               = "demo_alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.demo_lb_sg.id]
@@ -101,6 +101,6 @@ resource "aws_lb" "demo_alb" {
   enable_cross_zone_load_balancing = true
 
   tags = {
-    Name = "demo-alb"
+    Name = "demo_alb"
   }
 }
