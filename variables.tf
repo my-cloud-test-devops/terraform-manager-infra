@@ -106,21 +106,21 @@ variable "cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "ec2_ingress_ports" {
-  type        = list(number)
-  default     = [80, 8080,]
-}
+# variable "ec2_ingress_ports" {
+#   type        = list(number)
+#   default     = [80, 8080,]
+# }
 
 #ZONE
 variable "vpc_zone_identifier" {
     type = list(string)
-    default = ["subnet_id_1", "subnet_id_2"]
+    default = ["pub_subnet_id_1", "pub_subnet_id_2"]
   
 }
 
 #
 variable "demo_alb_subnets" {
     type = list(string)
-    default = ["subnet_id_1", "subnet_id_2"]
+    default = ["pub_subnet_id_1", "pub_subnet_id_2"]
   
 }

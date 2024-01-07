@@ -28,7 +28,7 @@ resource "aws_security_group" "demo_instance_sg" {
   description = "Receives traffic only from Load Balancer"
 
   dynamic "ingress" {
-    for_each = var.ec2_ingress_ports
+    for_each = var.ingress_ports
 
     content {
       from_port       = ingress.value
@@ -50,7 +50,7 @@ resource "aws_security_group" "demo_instance_sg" {
   }
 
   dynamic "egress" {
-    for_each = var.ec2_ingress_ports
+    for_each = var.ingress_ports
 
     content {
       from_port       = egress.value

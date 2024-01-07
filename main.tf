@@ -94,7 +94,7 @@ resource "aws_lb" "demo_alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.demo_lb_sg.id]
   #subnets            = [aws_subnet.demo_subnet_public_1.id, aws_subnet.demo_subnet_public_2.id]
-  subnets            = var.demo_alb_subnets 
+  subnets            = var.demo_alb_subnets
   enable_deletion_protection = false
 
   enable_http2        = true
