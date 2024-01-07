@@ -119,8 +119,8 @@ variable "vpc_zone_identifier" {
 }
 
 #
-variable "demo_alb_subnets" {
-    type = list(string)
-    default = ["pub_subnet_id_1", "pub_subnet_id_2"]
+# variable "demo_alb_subnets" {
+#     type = list(string)
+#     default = ["pub_subnet_id_1", "pub_subnet_id_2"]
   
-}
+# }

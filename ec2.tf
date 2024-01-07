@@ -1,5 +1,3 @@
-
-
 # Create Launch Template
 resource "aws_launch_template" "demo_launch_template" {
   name          = "demo-launch-template"
