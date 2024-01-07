@@ -43,18 +43,48 @@ resource "aws_route_table" "demo_route_table" {
 }
 
 # Associate public subnets with the route table
+# resource "aws_route_table_association" "demo_association_public" {
+#   count = length(var.pub_subnet_ids)
+#   subnet_id  = element (var.pub_subnet_ids, count.index)
+#   route_table_id = aws_route_table.demo_route_table.id
+# }
+
+data "aws_subnet" "pub-subnet-metadata" {
+  count = length(var.subnet_tag_pub)
+  depends_on = [aws_subnet.demo_subnet_public]
+  filter {
+    name   = "tag:Name"
+    values = [element(var.subnet_tag_pub[*].Name, count.index)]
+  }
+}
+
 resource "aws_route_table_association" "demo_association_public" {
-  count = length(var.pub_subnet_ids)
-  subnet_id  = element (var.pub_subnet_ids, count.index)
+  count = length(var.pub_cidr)
   route_table_id = aws_route_table.demo_route_table.id
+  subnet_id = data.aws_subnet.pub-subnet-metadata[count.index].id
 }
 
 # Associate private subnets with the route table
-resource "aws_route_table_association" "demo_association_private" {
-  count = length(var.pri_subnet_ids)
-  subnet_id  = element (var.pri_subnet_ids, count.index)
-  route_table_id = aws_route_table.demo_route_table.id
-}
+# resource "aws_route_table_association" "demo_association_private" {
+#   count = length(var.pri_subnet_ids)
+#   subnet_id  = element (var.pri_subnet_ids, count.index)
+#   route_table_id = aws_route_table.demo_route_table.id
+# }
+
+# data "aws_subnet" "pri-subnet-metadata" {
+#   count = length(var.subnet_tag_pub)
+#   depends_on = [aws_subnet.demo_subnet_private]
+#   filter {
+#     name   = "tag:Name"
+#     values = [element(var.subnet_tag_pri[*].Name, count.index)]
+#   }
+# }
+
+# resource "aws_route_table_association" "pri-ass" {
+#   count = length(var.pub_cidr)
+#   route_table_id = aws_route_table.main-pri-rt.id
+#   subnet_id = data.aws_subnet.pri-subnet-metadata[count.index].id
+# }
 
 #Application Load Balance:
 resource "aws_lb" "demo_alb" {
