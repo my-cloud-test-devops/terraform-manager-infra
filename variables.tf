@@ -111,10 +111,10 @@ variable "cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-# variable "ec2_ingress_ports" {
-#   type        = list(number)
-#   default     = [80, 8080,]
-# }
+variable "ec2_ingress_ports" {
+  type        = list(number)
+  default     = [80, 8080,22]
+}
 
 #ZONE
 variable "vpc_zone_identifier" {
