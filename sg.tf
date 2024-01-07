@@ -28,7 +28,7 @@ resource "aws_security_group" "demo_instance_sg" {
   description = "Receives traffic only from Load Balancer"
 
   dynamic "ingress" {
-    for_each = var.ec2.ingress_ports
+    for_each = var.ec2_ingress_ports
 
     content {
       from_port       = ingress.value
@@ -48,15 +48,20 @@ resource "aws_security_group" "demo_instance_sg" {
 #       cidr_blocks = ["0.0.0.0/0"]
 #     }
 #   }
-
-  dynamic "egress" {
-    for_each = var.egress_ports
-
-    content {
-      from_port       = egress.value
-      to_port         = egress.value
-      protocol        = "-1"
-      cidr_blocks     = ["0.0.0.0/0"]
-    }
+egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.cidr_blocks
   }
+#   dynamic "egress" {
+#     for_each = var.egress_ports
+
+#     content {
+#       from_port       = egress.value
+#       to_port         = egress.value
+#       protocol        = "-1"
+#       cidr_blocks     = ["0.0.0.0/0"]
+#     }
+#   }
 }
