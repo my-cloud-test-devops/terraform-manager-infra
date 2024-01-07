@@ -1,6 +1,6 @@
 #Load Balancer
 resource "aws_security_group" "demo_lb_sg" {
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.demo_vpc
   name        = var.security_group_name
   description = var.security_group_description
 
