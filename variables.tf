@@ -37,7 +37,7 @@ variable "subnet_tag_pub" {
 # Public Subnet Ids
 variable "pub_subnet_ids" {
   type    = list(string)
-  default = ["subnet_id_1", "subnet_id_2"]
+  default = ["pub_subnet_id_1", "pub_subnet_id_2"]
 }
 
 
@@ -63,7 +63,7 @@ variable "subnet_tag_pri" {
 #Private Subnet Ids
 variable "pri_subnet_ids" {
   type    = list(string)
-  default = ["subnet_id_1", "subnet_id_2"]
+  default = ["pri_subnet_id_1", "pri_subnet_id_2"]
 }
 
 ##Internet Gateway##
