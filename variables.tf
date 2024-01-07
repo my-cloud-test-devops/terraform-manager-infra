@@ -1,7 +1,7 @@
 # VPC CIDR
 variable "vpc_id" {
     type = string
-    default = "10.0.0.0/20"
+    default = "192.168.10.0/24"
 }
 
 # VPC NAME
@@ -17,7 +17,7 @@ default = {
 # Public PUB_CIDR
 variable "pub_cidr" {
     type = list(string)
-    default = [ "10.0.1.0/25, 10.0.2.0/25" ]
+    default = ["192.168.10.0/26", "192.168.10.64/26"]
   
 }
 
@@ -44,7 +44,7 @@ variable "pub_subnet_ids" {
 # Private PRI_CIDR
 variable "pri_cidr" {
     type = list(string)
-    default = ["10.0.3.0/24", "10.0.4.0/24"]
+    default = ["192.168.10.128/26", "192.168.10.192/26"]
 }
 
 #Private Subnet Tags

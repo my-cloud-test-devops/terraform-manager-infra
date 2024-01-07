@@ -18,9 +18,9 @@ resource "aws_subnet" "demo_subnet_public" {
 
 # Create private subnets
 resource "aws_subnet" "demo_subnet_private" {
-    count = length(var.pub_cidr)
+    count = length(var.pri_cidr)
     vpc_id = aws_vpc.demo_vpc.id
-    cidr_block = element(var.pub_cidr, count.index)
+    cidr_block = element(var.pri_cidr, count.index)
     map_public_ip_on_launch = true
     enable_resource_name_dns_a_record_on_launch = true
     tags = element(var.subnet_tag_pri, count.index)
