@@ -15,31 +15,33 @@ default = {
 }
 
 # Public PUB_CIDR
-variable "pub_cidr" {
-    type = list(string)
-    default = ["192.168.10.0/26", "192.168.10.64/26"]
+variable "pub_cidr_1" {
+    type = string
+    default = "192.168.10.0/26"
+}
+
+variable "pub_cidr_2" {
+  type = string
+  default = "192.168.10.64/26"
   
 }
 
-# Private Subnet Tags
-variable "subnet_tag_pub" {
-    type = list(object({
-      Name = string
-    }))
-    default = [ {
-      Name = "pub-subnet-1"
-    },
-    {
-      Name = "pub-subnet-2"
-    } ]
+# # Public Subnet Ids
+# variable "pub_subnet_ids" {
+#   type    = list(string)
+#   default = ["pub_subnet_id_1", "pub_subnet_id_2"]
+# }
+
+# Publice Subnet Tags
+variable "subnet_tag_pub_1" {
+    type    = string
+  default = "pub_subnet_id_1"
 }
 
-# Public Subnet Ids
-variable "pub_subnet_ids" {
-  type    = list(string)
-  default = ["pub_subnet_id_1", "pub_subnet_id_2"]
+variable "subnet_tag_pub_2" {
+    type    = string
+  default = "pub_subnet_id_2"
 }
-
 
 # Private PRI_CIDR
 variable "pri_cidr" {
@@ -111,16 +113,32 @@ variable "ec2_ingress_ports" {
   default     = [80, 8080,22]
 }
 
-#ZONE
-variable "vpc_zone_identifier" {
-    type = list(string)
-    default = ["pub_subnet_id_1", "pub_subnet_id_2"]
+# #ZONE
+# variable "vpc_zone_identifier" {
+#     type = list(string)
+#     default = ["pub_subnet_id_1", "pub_subnet_id_2"]
   
+# }
+
+#Availability_Zones:
+
+variable "availability_zones" {
+  type    = list(string)
+  default = ["us-east-1a", "us-east-1b"]  # Update with your desired availability zones
 }
 
 #
-variable "demo_alb_subnets" {
-    type = list(string)
-    default = ["pub_subnet_id_1", "pub_subnet_id_2"]
+# variable "demo_alb_subnets" {
+#     type = list(string)
+#     default = ["pub_subnet_id_1", "pub_subnet_id_2"]
   
+# }
+
+#ALB_NAME
+variable "alb_name" {
+  description = "Name of the Application Load Balancer"
+  type        = string
+  default     = "demo-alb"
 }
+
+#LAUNCH_TEMPLATE

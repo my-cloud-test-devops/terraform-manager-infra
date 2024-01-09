@@ -7,13 +7,23 @@ resource "aws_vpc" "demo_vpc" {
 }
 
 # Create public subnets
-resource "aws_subnet" "demo_subnet_public" {
-    count = length(var.pub_cidr)
+resource "aws_subnet" "demo_subnet_public_1" {
     vpc_id = aws_vpc.demo_vpc.id
-    cidr_block = element(var.pub_cidr, count.index)
+    cidr_block = var.pub_cidr_1.id
+    availability_zone       = var.availability_zones[0]  # Use the first availability zone from the list
     map_public_ip_on_launch = true
     enable_resource_name_dns_a_record_on_launch = true
-    tags = element(var.subnet_tag_pub, count.index)
+    tags = var.subnet_tag_pub_1.id
+}
+
+resource "aws_subnet" "demo_subnet_public_2" {
+    #count = length(var.pub_cidr)
+    vpc_id = aws_vpc.demo_vpc.id
+    cidr_block = var.pub_cidr.id_2.id
+    availability_zone       = var.availability_zones[1]  # Use the first availability zone from the list
+    map_public_ip_on_launch = true
+    enable_resource_name_dns_a_record_on_launch = true
+    tags = var.subnet_tag_pub_2.id
 }
 
 # Create private subnets
@@ -49,22 +59,28 @@ resource "aws_route_table" "demo_route_table" {
 #   route_table_id = aws_route_table.demo_route_table.id
 # }
 
-data "aws_subnet" "pub-subnet-metadata" {
-  count = length(var.subnet_tag_pub)
-  depends_on = [aws_subnet.demo_subnet_public]
-  filter {
-    name   = "tag:Name"
-    values = [element(var.subnet_tag_pub[*].Name, count.index)]
-  }
-}
+# data "aws_subnet" "pub-subnet-metadata" {
+#   count = length(var.subnet_tag_pub)
+#   #count = length(var.pub_subnet_ids)
+#   depends_on = [aws_subnet.demo_subnet_public]
+#   filter {
+#     name   = "tag:Name"
+#     values = [element(var.subnet_tag_pub[*].Name, count.index)]
+#     #values = [element(var.pub_subnet_ids[*].Name, count.index)]
+#   }
+# }
 
-resource "aws_route_table_association" "demo_association_public" {
-  count = length(var.pub_cidr)
+resource "aws_route_table_association" "demo_association_public_1" {
+  subnet_id      = aws_subnet.demo_subnet_public_1.id
   route_table_id = aws_route_table.demo_route_table.id
-  subnet_id = data.aws_subnet.pub-subnet-metadata[count.index].id
 }
 
-# Associate private subnets with the route table
+resource "aws_route_table_association" "demo_association_public_2" {
+  subnet_id      = aws_subnet.demo_subnet_public_2.id
+  route_table_id = aws_route_table.demo_route_table.id
+}
+
+#Associate private subnets with the route table
 # resource "aws_route_table_association" "demo_association_private" {
 #   count = length(var.pri_subnet_ids)
 #   subnet_id  = element (var.pri_subnet_ids, count.index)
@@ -87,20 +103,37 @@ resource "aws_route_table_association" "demo_association_public" {
 # }
 
 #Application Load Balance:
+# resource "aws_lb" "demo_alb" {
+#   #count = length(var.pub_subnet_ids)
+#   name               = "demo-alb"
+#   internal           = false
+#   load_balancer_type = "application"
+#   security_groups    = [aws_security_group.demo_lb_sg.id]
+#   #subnets            = [aws_subnet.demo_subnet_public_1.id, aws_subnet.demo_subnet_public_2.id]
+#   subnets            = var.pub_subnet_ids
+#   enable_deletion_protection = false
+
+#   enable_http2        = true
+#   enable_cross_zone_load_balancing = true
+
+#   tags = {
+#     Name = "demo-alb"
+#   }
+# }
+#ALB
 resource "aws_lb" "demo_alb" {
-  #count = length(var.pub_subnet_ids)
-  name               = "demo-alb"
+  name               = var.alb_name
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.demo_lb_sg.id]
-  #subnets            = [aws_subnet.demo_subnet_public_1.id, aws_subnet.demo_subnet_public_2.id]
-  subnets            = var.pub_subnet_ids
+  #subnets            = var.pub_subnet_ids
+  subnets            = [aws_subnet.demo_subnet_public_1.id, aws_subnet.demo_subnet_public_2]
   enable_deletion_protection = false
 
   enable_http2        = true
   enable_cross_zone_load_balancing = true
 
   tags = {
-    Name = "demo-alb"
+    Name = var.alb_name
   }
 }
