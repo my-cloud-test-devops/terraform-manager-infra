@@ -5,8 +5,8 @@ resource "aws_db_instance" "demo_rds_instance" {
   engine                 = "mysql"
   engine_version         = "8.0.35"
   instance_class         = "db.t2.micro"
-#   username               = var.db_username
-#   password               = var.db_password
+  username               = var.db_username
+  password               = var.db_password
   port                   = 3306
   publicly_accessible    = false
   multi_az               = false

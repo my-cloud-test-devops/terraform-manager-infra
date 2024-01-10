@@ -8,16 +8,19 @@
 #   description = "AWS Secret Access Key"
 # }
 
-# variable "db_username" {
-#   description = "Database username"
-#   type        = string
-# }
+variable "db_username" {
+  description = "RDS username"
+  type        = string
+  sensitive   = true
+}
 
-# variable "db_password" {
-#   description = "Database password"
-#   type        = string
-# }
+variable "db_password" {
+  description = "RDS password"
+  type        = string
+  sensitive   = true
+}
 
-# variable "bucket_name" {
-#   description = "Name of the S3 bucket"
-# }
+variable "bucket_name" {
+  description = "S3 bucket name"
+  type        = string
+}
