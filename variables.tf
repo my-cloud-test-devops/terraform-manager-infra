@@ -101,11 +101,6 @@ variable "ingress_ports" {
   default     = [80, 8080,]
 }
 
-variable "egress_ports" {
-  type        = list(number)
-  default     = [0, 0,]
-}
-
 variable "cidr_blocks" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
