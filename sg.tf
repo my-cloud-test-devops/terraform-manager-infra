@@ -1,24 +1,28 @@
-#Load Balancer
+# Create Security Groups
 resource "aws_security_group" "demo_lb_sg" {
   vpc_id      = aws_vpc.demo_vpc.id
-  name        = var.security_group_name
-  description = var.security_group_description
+  name        = "demo-lb-sg"
+  description = "Load Balancer Security Group"
 
-  dynamic "ingress" {
-    for_each = var.ingress_ports
-    content {
-      from_port   = ingress.value
-      to_port     = ingress.value
-      protocol    = "tcp"
-      cidr_blocks = var.cidr_blocks
-    }
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = var.cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -27,41 +31,78 @@ resource "aws_security_group" "demo_instance_sg" {
   name        = "demo-instance-sg"
   description = "Receives traffic only from Load Balancer"
 
-  dynamic "ingress" {
-    for_each = var.ec2_ingress_ports
-
-    content {
-      from_port       = ingress.value
-      to_port         = ingress.value
-      protocol        = "tcp"
-      security_groups = [aws_security_group.demo_lb_sg.id]
-    }
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.demo_lb_sg.id]
   }
 
-#   dynamic "ingress" {
-#     for_each = [22]
+  ingress {
+    from_port       = 8080
+    to_port         = 8080
+    protocol        = "tcp"
+    security_groups = [aws_security_group.demo_lb_sg.id]
+  }
 
-#     content {
-#       from_port   = ingress.value
-#       to_port     = ingress.value
-#       protocol    = "tcp"
-#       cidr_blocks = ["0.0.0.0/0"]
-#     }
-#   }
-egress {
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = var.cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
   }
-#   dynamic "egress" {
-#     for_each = var.egress_ports
+}
 
-#     content {
-#       from_port       = egress.value
-#       to_port         = egress.value
-#       protocol        = "-1"
-#       cidr_blocks     = ["0.0.0.0/0"]
-#     }
-#   }
+resource "aws_security_group" "demo_bastion_sg" {
+  vpc_id      = aws_vpc.demo_vpc.id
+  name        = "demo-bastion-sg"
+  description = "For Accessing MySQL using PhpAdmin"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "demo_rds_sg" {
+  vpc_id      = aws_vpc.demo_vpc.id
+  name        = "demo-rds-sg"
+  description = "RDS MySQL Security Group"
+
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.demo_instance_sg.id, aws_security_group.demo_bastion_sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }

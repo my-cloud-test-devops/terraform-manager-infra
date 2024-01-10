@@ -24,6 +24,11 @@ jobs:
         #AWS Secrets
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+        S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+
+        # RDS Credentials
+        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
 
       runs-on: ubuntu-latest
       environment: production
