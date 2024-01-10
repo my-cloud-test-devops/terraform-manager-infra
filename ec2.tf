@@ -34,7 +34,7 @@ resource "aws_launch_template" "demo_launch_template" {
 
   image_id      = "ami-079db87dc4c10ac91"
   instance_type = "t2.micro"
-  key_name      = "latest_belgium_task"
+  key_name      = "latest_devops_task_new_key_pair"
 
   block_device_mappings {
     device_name = "/dev/xvda"
