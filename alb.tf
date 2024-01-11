@@ -22,13 +22,13 @@ resource "aws_lb_target_group" "demo_tg_80" {
   vpc_id      = aws_vpc.demo_vpc.id
 
   health_check {
-    path                = "/"  # Specify the path for health checks
-    port                = 80         # Specify the port for health checks
-    protocol            = "HTTP"     # Specify the protocol for health checks (HTTP or HTTPS)
-    interval            = 30         # Specify the interval between health checks in seconds
-    timeout             = 5          # Specify the amount of time, in seconds, during which no response means a failed health check
-    unhealthy_threshold = 10          # Specify the number of consecutive health check failures required before considering a target unhealthy
-    healthy_threshold   = 2        # Specify the number of consecutive health check successes required before considering a target healthy
+    path                = "/"  
+    port                = 80        
+    protocol            = "HTTP"    
+    interval            = 30         
+    timeout             = 5          
+    unhealthy_threshold = 10          
+    healthy_threshold   = 2
   }
 }
 
@@ -40,13 +40,13 @@ resource "aws_lb_target_group" "demo_tg_8080" {
   vpc_id      = aws_vpc.demo_vpc.id
 
   health_check {
-    path                = "/"  # Specify the path for health checks
-    port                = 8080       # Specify the port for health checks
-    protocol            = "HTTP"     # Specify the protocol for health checks (HTTP or HTTPS)
-    interval            = 30         # Specify the interval between health checks in seconds
-    timeout             = 5          # Specify the amount of time, in seconds, during which no response means a failed health check
-    unhealthy_threshold = 10          # Specify the number of consecutive health check failures required before considering a target unhealthy
-    healthy_threshold   = 2          # Specify the number of consecutive health check successes required before considering a target healthy
+    path                = "/"  
+    port                = 8080       
+    protocol            = "HTTP"     
+    interval            = 30         
+    timeout             = 5          
+    unhealthy_threshold = 10         
+    healthy_threshold   = 2         
 }
 }
 
