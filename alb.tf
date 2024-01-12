@@ -20,16 +20,6 @@ resource "aws_lb_target_group" "demo_tg_80" {
   protocol    = "HTTP"
   target_type = "instance"
   vpc_id      = aws_vpc.demo_vpc.id
-
-  health_check {
-    path                = "/"  
-    port                = 80        
-    protocol            = "HTTP"    
-    interval            = 30         
-    timeout             = 5          
-    unhealthy_threshold = 10          
-    healthy_threshold   = 2
-  }
 }
 
 resource "aws_lb_target_group" "demo_tg_8080" {
@@ -38,16 +28,6 @@ resource "aws_lb_target_group" "demo_tg_8080" {
   protocol    = "HTTP"
   target_type = "instance"
   vpc_id      = aws_vpc.demo_vpc.id
-
-  health_check {
-    path                = "/"  
-    port                = 8080       
-    protocol            = "HTTP"     
-    interval            = 30
-    timeout             = 5          
-    unhealthy_threshold = 10         
-    healthy_threshold   = 2         
-}
 }
 
 resource "aws_lb_listener" "demo_listener_80" {
