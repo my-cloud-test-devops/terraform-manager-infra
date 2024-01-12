@@ -7,7 +7,7 @@
 resource "aws_instance" "demo_bastion_instance" {
   ami           = "ami-079db87dc4c10ac91"
   instance_type = "t2.micro"
-  key_name      = "latest_belgium_task"
+  key_name      = "latest_devops_task_new_key_pair"
   subnet_id     = aws_subnet.demo_subnet_public_1.id
 
   vpc_security_group_ids = [aws_security_group.demo_bastion_sg.id]
