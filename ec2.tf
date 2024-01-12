@@ -105,7 +105,7 @@ resource "aws_autoscaling_group" "demo_autoscaling_group" {
   }
 
   health_check_type         = "ELB"
-  health_check_grace_period = 0
+  health_check_grace_period = 100
   force_delete              = true
 
   lifecycle {
